@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fix Tailwind vs Bootstrap conflict */
+.navbar,
+.navbar * {
+  all: revert;
+}
