@@ -26,5 +26,6 @@ dist-ssr
 # Local env and generated API data
 .env
 bc/data.json
+server/
 .vercel
 .npm-cache/
