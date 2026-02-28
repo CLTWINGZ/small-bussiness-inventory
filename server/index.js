@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { v4 as uuid } from "uuid";
-import seedData from "./seedData.js"; // ✅ correct
+import seedData from "./src/data/seedData.js"; // ✅ correct
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
