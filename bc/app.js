@@ -19,6 +19,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Lightweight health check for uptime monitors / Railway
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 // Define writeData BEFORE readData (fixes ReferenceError -> 500)
 const writeData = (data) => {
   fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));

@@ -8,7 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "api": "node bc/index.js"
+    "api": "node bc/index.js",
+    "backend": "node bc/index.js"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
