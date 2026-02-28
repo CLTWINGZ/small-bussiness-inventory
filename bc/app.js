@@ -310,6 +310,16 @@ app.get("/dashboard/summary", authMiddleware, (req, res) => {
   });
 });
 
+// Serve built SPA when present (Railway single-service deploy)
+const clientDist = path.join(__dirname, "..", "dist");
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist));
+  // SPA fallback
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(clientDist, "index.html"));
+  });
+}
+
 // Helpful error logger (so 500s show real cause)
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error("Unhandled error:", err);
