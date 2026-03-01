@@ -1,10 +1,24 @@
-const API_URL = import.meta.env.VITE_API_URL || "/api";
+const rawBase = import.meta.env.VITE_API_URL;
+
+// Normalize API base URL so env mistakes (missing protocol) don't break routes.
+let API_BASE;
+if (!rawBase || rawBase.trim() === "") {
+  API_BASE = "/api"; // default for Vercel/serverless proxy
+} else if (/^https?:\/\//i.test(rawBase)) {
+  API_BASE = rawBase;
+} else if (rawBase.startsWith("/")) {
+  API_BASE = rawBase; // same-origin absolute path (e.g., "/" for Railway single service)
+} else {
+  API_BASE = `https://${rawBase}`; // add protocol if user set only domain
+}
+// ensure no trailing slash to avoid double slashes
+if (API_BASE.endsWith("/")) API_BASE = API_BASE.slice(0, -1);
 
 const getToken = () => localStorage.getItem("token");
 
 const request = async (path, options = {}) => {
   const token = getToken();
-  const res = await fetch(`${API_URL}${path}`, {
+  const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
